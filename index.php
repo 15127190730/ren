@@ -1,27 +1,27 @@
 <?php
 include_once "wxBizMsgCrypt.php";
-//define("AppID", "wxb9b907dd8e4bf31f");
-//define("AppSecret", "2b1dd565cfad6a3b6cc069d5dcb4c369");
-//define("TOKEN", "laopifu");
-//define("EncodingAESKey", "39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0");
-//
-//
-//$signature = $_GET["signature"];
-//$timestamp = $_GET["timestamp"];
-//$nonce     = $_GET["nonce"];
-//
-//$token  = TOKEN;
-//$tmpArr = array($token, $timestamp, $nonce);
-//sort($tmpArr);
-//$tmpStr = implode($tmpArr);
-//$tmpStr = sha1($tmpStr);
-//
-//if ($tmpStr == $signature) {
-//    $echostr = $_GET["echostr"];
-//    echo $echostr;
-//} else {
-//    return false;
-//}
+define("AppID", "wxb9b907dd8e4bf31f");
+define("AppSecret", "2b1dd565cfad6a3b6cc069d5dcb4c369");
+define("TOKEN", "laopifu");
+define("EncodingAESKey", "39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0");
+
+
+$signature = $_GET["signature"];
+$timestamp = $_GET["timestamp"];
+$nonce     = $_GET["nonce"];
+
+$token  = TOKEN;
+$tmpArr = array($token, $timestamp, $nonce);
+sort($tmpArr);
+$tmpStr = implode($tmpArr);
+$tmpStr = sha1($tmpStr);
+
+if ($tmpStr == $signature) {
+    $echostr = $_GET["echostr"];
+    echo $echostr;
+} else {
+    return false;
+}
 //
 //
 //$msg_signature = $_GET['msg_signature'];
