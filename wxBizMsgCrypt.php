@@ -135,9 +135,7 @@ class WXBizMsgCrypt
 		if ($signature != $msgSignature) {
 			return ErrorCode::$ValidateSignatureError;
 		}
-        file_put_contents('aaa.txt', '王杰王杰王杰王杰王杰王杰王杰王杰', FILE_APPEND);
 		$result = $pc->decrypt($encrypt, $this->appId);
-        file_put_contents('aaa.txt', $result, FILE_APPEND);
         if ($result[0] != 0) {
 			return $result[0];
 		}

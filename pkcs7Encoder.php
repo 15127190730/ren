@@ -99,15 +99,23 @@ class Prpcrypt {
      * @return string 解密得到的明文
      */
     public function decrypt($encrypted, $appid) {
+        file_put_contents('aaa.txt', '111111', FILE_APPEND);
         try {
             //使用BASE64对需要解密的字符串进行解码
+            file_put_contents('aaa.txt', '222222', FILE_APPEND);
             $ciphertext_dec = base64_decode($encrypted);
+            file_put_contents('aaa.txt', '3333333', FILE_APPEND);
             $module         = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', MCRYPT_MODE_CBC, '');
+            file_put_contents('aaa.txt', '4444444', FILE_APPEND);
             $iv             = substr($this->key, 0, 16);
+            file_put_contents('aaa.txt', '555555555', FILE_APPEND);
             mcrypt_generic_init($module, $this->key, $iv);
+            file_put_contents('aaa.txt', '6666666666', FILE_APPEND);
             //解密
             $decrypted = mdecrypt_generic($module, $ciphertext_dec);
+            file_put_contents('aaa.txt', '777777777', FILE_APPEND);
             mcrypt_generic_deinit($module);
+            file_put_contents('aaa.txt', '888888888', FILE_APPEND);
             mcrypt_module_close($module);
         } catch (Exception $e) {
             return array(ErrorCode::$DecryptAESError, null);
