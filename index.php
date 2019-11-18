@@ -38,7 +38,17 @@ if (!empty($postArr)) {
     }
 }
 $postObj = simplexml_load_string($postArr); //将xml数据转换为对象
-file_put_contents('aaa.txt', $postObj, FILE_APPEND);
+if(strtolower($postObj->MsgType) == 'text'){
+    $keyword = trim($postObj->Content);
+
+    if(!empty($keyword)) {
+        if($keyword=='你好'){
+            $content='老匹夫';
+            responseText($postObj, $content);
+        }
+    }
+}
+//file_put_contents('aaa.txt', $postObj, FILE_APPEND);
 //回复文字消息
 function responseText($postObj, $content) {
     $toUser   = $postObj->FromUserName;
