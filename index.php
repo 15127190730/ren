@@ -48,7 +48,7 @@ if(strtolower($postObj->MsgType) == 'text'){
         }
     }
 }
-//file_put_contents('aaa.txt', $postObj, FILE_APPEND);
+file_put_contents('aaa.txt', $postObj->Content, FILE_APPEND);
 //回复文字消息
 function responseText($postObj, $content) {
     $toUser   = $postObj->FromUserName;
