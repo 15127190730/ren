@@ -66,7 +66,6 @@ class Prpcrypt {
      * @return string 加密后的密文
      */
     public function encrypt($text, $appid) {
-
         try {
             //获得16位随机字符串，填充到明文之前
             $random = $this->getRandomStr();
@@ -75,10 +74,7 @@ class Prpcrypt {
             //使用自定义的填充方式对明文进行补位填充
             $pkc_encoder = new PKCS7Encoder;
             $text        = $pkc_encoder->encode($text);
-            $encrypted = openssl_encrypt($text, 'AES-256-CBC', $this->key, OPENSSL_RAW_DATA, $iv);
-
-
-            //print(base64_encode($encrypted));
+            $encrypted = openssl_encrypt($text,'AES-256-CBC',substr($this->key, 0, 32),OPENSSL_ZERO_PADDING,$iv);
             //使用BASE64对加密后的字符串进行编码
             return array(ErrorCode::$OK, base64_encode($encrypted));
         } catch (Exception $e) {
