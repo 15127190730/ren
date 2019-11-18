@@ -4,7 +4,7 @@ define("AppSecret", "2b1dd565cfad6a3b6cc069d5dcb4c369");
 define("AppID", "wxb9b907dd8e4bf31f");
 define("TOKEN", "laopifu");
 define("EncodingAESKey", "39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0");
-checkSignature();
+//checkSignature();
 responseMsg();
 
 //$appId          = 'wxb9b907dd8e4bf31f';
@@ -63,7 +63,6 @@ function responseMsg() {
 
         if (isset($content) && $content) {
             $info = responseText($postObj, $content);
-            echo $info;
 //            file_put_contents('aaa.txt', $encryptMsg, FILE_APPEND);
             //加密
             if ($encrypt_type == 'aes') {
@@ -71,11 +70,12 @@ function responseMsg() {
                 $pc         = new WXBizMsgCrypt(TOKEN, EncodingAESKey, AppID);
                 $errCode    = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
                 if ($errCode == 0) {
-                    echo $encryptMsg;
+                    $info= $encryptMsg;
 //                    file_put_contents('aaa.txt', $encryptMsg, FILE_APPEND);
                 }
 
             }
+            echo $info;
         }
     }
 
