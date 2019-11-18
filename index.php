@@ -37,32 +37,33 @@ function responseMsg() {
             }
 
         }
-    }
-    $postObj = simplexml_load_string($postArr); //将xml数据转换为对象
-    if (strtolower($postObj->MsgType) == 'text') {
-        $keyword = trim($postObj->Content);
+        $postObj = simplexml_load_string($postArr); //将xml数据转换为对象
+        if (strtolower($postObj->MsgType) == 'text') {
+            $keyword = trim($postObj->Content);
 
-        if (!empty($keyword)) {
-            if ($keyword == '123') {
-                $content = '老匹夫';
+            if (!empty($keyword)) {
+                if ($keyword == '123') {
+                    $content = '老匹夫';
+                }
             }
+        }
+
+        if (isset($content) && $content) {
+            $info = responseText($postObj, $content);
+            //加密
+            if ($encrypt_type == 'aes') {
+                $encryptMsg = ''; //加密后的密文
+                $pc         = new WXBizMsgCrypt($token, $encodingAesKey, $appId);
+                $errCode    = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
+                if ($errCode == 0) {
+                    echo $encryptMsg;
+                }
+
+            }
+
         }
     }
 
-    if (isset($content) && $content) {
-        $info = responseText($postObj, $content);
-        //加密
-        if ($encrypt_type == 'aes') {
-            $encryptMsg = ''; //加密后的密文
-            $pc         = new WXBizMsgCrypt($token, $encodingAesKey, $appId);
-            $errCode    = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
-            if ($errCode == 0) {
-                $info       = $encryptMsg;
-            }
-
-        }
-        return $info;
-    }
 }
 
 //回复文字消息
