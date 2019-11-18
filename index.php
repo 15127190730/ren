@@ -30,12 +30,12 @@ $postArr       = file_get_contents("php://input");
 if (!empty($postArr)) {
     if ($encrypt_type == 'aes') {
         $pc         = new WXBizMsgCrypt(TOKEN, EncodingAESKey, AppID);
-        $decryptMsg = "";  //解密后的明文
-        $errCode    = $pc->DecryptMsg($msg_signature, $timestamp, $nonce, $postArr, $decryptMsg);
+        $decryptMsg = "qwe";  //解密后的明文
+//        $errCode    = $pc->DecryptMsg($msg_signature, $timestamp, $nonce, $postArr, $decryptMsg);
         $postArr    = $decryptMsg;
     }
 }
 
-file_put_contents('aaa.txt', $errCode, FILE_APPEND);
+file_put_contents('aaa.txt', $postArr, FILE_APPEND);
 
 ?>
