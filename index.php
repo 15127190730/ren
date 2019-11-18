@@ -56,7 +56,7 @@ if(isset($content) && $content) {
         $errCode = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
         $info = $encryptMsg;
     }
-
+    file_put_contents('aaa.txt', $info, FILE_APPEND);
     echo $info;
 }
 file_put_contents('aaa.txt', $postObj->Content, FILE_APPEND);

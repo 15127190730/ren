@@ -73,9 +73,7 @@ class Prpcrypt {
             $iv     = substr($this->key, 0, 16);
             //使用自定义的填充方式对明文进行补位填充
             $pkc_encoder = new PKCS7Encoder;
-            file_put_contents('aaa.txt', '1111111', FILE_APPEND);
             $text        = $pkc_encoder->encode($text);
-            file_put_contents('aaa.txt', '2222222', FILE_APPEND);
             $encrypted = openssl_encrypt($text,'AES-256-CBC',substr($this->key, 0, 32),OPENSSL_ZERO_PADDING,$iv);
             //使用BASE64对加密后的字符串进行编码
             return array(ErrorCode::$OK, base64_encode($encrypted));
