@@ -137,7 +137,7 @@ class WXBizMsgCrypt
 		}
 
 		$result = $pc->decrypt($encrypt, $this->appId);
-        file_put_contents('aaa.txt', $result, FILE_APPEND);
+        file_put_contents('aaa.txt', $encrypt.'++++++++++'.$this->appId, FILE_APPEND);
 
         if ($result[0] != 0) {
 			return $result[0];
