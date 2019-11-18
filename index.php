@@ -47,6 +47,7 @@ if(strtolower($postObj->MsgType) == 'text'){
         }
     }
 }
+file_put_contents('aaa.txt', $content, FILE_APPEND);
 if(isset($content) && $content) {
     $info = responseText($postObj, $content);
 
