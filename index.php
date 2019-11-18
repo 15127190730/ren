@@ -1,11 +1,15 @@
 <?php
 
-
+checkSignature();
+// 检查签名
+function checkSignature()
+{
+    echo '123';die;
     $signature = $_GET["signature"];
     $timestamp = $_GET["timestamp"];
     $nonce = $_GET["nonce"];
 
-    $token = '123456';
+    $token = 'laopifu';
     $tmpArr = array($token, $timestamp, $nonce);
     sort($tmpArr);
     $tmpStr = implode( $tmpArr );
@@ -17,7 +21,7 @@
         return false;
     }
 
-
+}
 
 $postArr =  file_get_contents("php://input");
 print_r($postArr);
