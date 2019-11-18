@@ -61,7 +61,7 @@ function responseMsg() {
             }
 
         }
-        echo $info;
+        return $info;
     }
 }
 
