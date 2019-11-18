@@ -48,6 +48,18 @@ if(strtolower($postObj->MsgType) == 'text'){
         }
     }
 }
+if(isset($content) && $content) {
+    $info = responseText($postObj, $content);
+
+    //加密
+    if ($encrypt_type == 'aes') {
+        $encryptMsg = ''; //加密后的密文
+        $errCode = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
+        $info = $encryptMsg;
+    }
+
+    echo $info;
+}
 file_put_contents('aaa.txt', $postObj->Content, FILE_APPEND);
 //回复文字消息
 function responseText($postObj, $content) {
