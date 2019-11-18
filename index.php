@@ -4,7 +4,7 @@ define("AppSecret", "2b1dd565cfad6a3b6cc069d5dcb4c369");
 define("AppID", "wxb9b907dd8e4bf31f");
 define("TOKEN", "laopifu");
 define("EncodingAESKey", "39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0");
-
+//checkSignature();
 responseMsg();
 
 //$appId          = 'wxb9b907dd8e4bf31f';
@@ -46,6 +46,7 @@ function responseMsg() {
 
         }
         $postObj = simplexml_load_string($postArr); //将xml数据转换为对象
+        /*判断消息类型并选择回复信息*/
         if (strtolower($postObj->MsgType) == 'text') {
             $keyword = trim($postObj->Content);
 
@@ -65,7 +66,7 @@ function responseMsg() {
                 $errCode    = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
                 if ($errCode == 0) {
                     echo $encryptMsg;
-                    file_put_contents('aaa.txt', $encryptMsg, FILE_APPEND);
+//                    file_put_contents('aaa.txt', $encryptMsg, FILE_APPEND);
                 }
 
             }
