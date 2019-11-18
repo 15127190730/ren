@@ -122,7 +122,6 @@ class Prpcrypt
 			return array(ErrorCode::$DecryptAESError, null);
 		}
 
-        file_put_contents('aaa.txt', '9999999999999999999999999999', FILE_APPEND);
 		try {
 			//去除补位字符
 			$pkc_encoder = new PKCS7Encoder;

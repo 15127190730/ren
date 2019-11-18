@@ -1,16 +1,15 @@
 <?php
 include_once "wxBizMsgCrypt.php";
-define("AppID", "wxb9b907dd8e4bf31f");
 define("AppSecret", "2b1dd565cfad6a3b6cc069d5dcb4c369");
-define("TOKEN", "laopifu");
-define("EncodingAESKey", "39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0");
 
+$appId='wxb9b907dd8e4bf31f';
+$encodingAesKey='39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0';
+$token="laopifu";
 
 $signature = $_GET["signature"];
 $timestamp = $_GET["timestamp"];
 $nonce     = $_GET["nonce"];
 
-$token  = TOKEN;
 $tmpArr = array($token, $timestamp, $nonce);
 sort($tmpArr);
 $tmpStr = implode($tmpArr);
@@ -29,13 +28,32 @@ $encrypt_type  = (isset($_GET['encrypt_type']) && ($_GET['encrypt_type'] == 'aes
 $postArr       = file_get_contents("php://input");
 if (!empty($postArr)) {
     if ($encrypt_type == 'aes') {
-        $pc         = new WXBizMsgCrypt(TOKEN, EncodingAESKey, AppID);
+        $pc         = new WXBizMsgCrypt($token, $encodingAesKey, $appId);
         $decryptMsg = "";  //解密后的明文
-        $errCode    = $pc->DecryptMsg($msg_signature, $timestamp, $nonce, $postArr, $decryptMsg);
-        $postArr    = $decryptMsg;
+        $errCode    = $pc->decryptMsg($msg_signature, $timestamp, $nonce, $postArr, $decryptMsg);
+        if($errCode==0){
+            $postArr    = $decryptMsg;
+        }
+
     }
 }
-
+$postObj = simplexml_load_string($postArr); //将xml数据转换为对象
 file_put_contents('aaa.txt', $postArr, FILE_APPEND);
-
+//回复文字消息
+function responseText($postObj, $content)
+{
+    $toUser = $postObj->FromUserName;
+    $fromUser = $postObj->ToUserName;
+    $time = time();
+    //返回文字消息的模板
+    $textTpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <Content><![CDATA[%s]]></Content>
+                    </xml>";
+    $info = sprintf($textTpl, $toUser, $fromUser, $time, $content);
+    return $info;
+}
 ?>
