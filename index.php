@@ -1,17 +1,21 @@
 <?php
 include_once "wxBizMsgCrypt.php";
 define("AppSecret", "2b1dd565cfad6a3b6cc069d5dcb4c369");
-responseMsg();
-function responseMsg() {
-    $appId          = 'wxb9b907dd8e4bf31f';
-    $encodingAesKey = '39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0';
-    $token          = "laopifu";
+define("AppID", "wxb9b907dd8e4bf31f");
+define("TOKEN", "laopifu");
+define("EncodingAESKey", "39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0");
 
+responseMsg();
+
+//$appId          = 'wxb9b907dd8e4bf31f';
+//$encodingAesKey = '39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0';
+//$token          = "laopifu";
+function checkSignature() {
     $signature = $_GET["signature"];
     $timestamp = $_GET["timestamp"];
     $nonce     = $_GET["nonce"];
 
-    $tmpArr = array($token, $timestamp, $nonce);
+    $tmpArr = array(TOKEN, $timestamp, $nonce);
     sort($tmpArr);
     $tmpStr = implode($tmpArr);
     $tmpStr = sha1($tmpStr);
@@ -22,14 +26,18 @@ function responseMsg() {
     } else {
         return false;
     }
+}
 
 
+function responseMsg() {
+    $timestamp     = $_GET['timestamp'];
+    $nonce         = $_GET["nonce"];
     $msg_signature = $_GET['msg_signature'];
     $encrypt_type  = (isset($_GET['encrypt_type']) && ($_GET['encrypt_type'] == 'aes')) ? "aes" : "raw";
     $postArr       = file_get_contents("php://input");
     if (!empty($postArr)) {
         if ($encrypt_type == 'aes') {
-            $pc         = new WXBizMsgCrypt($token, $encodingAesKey, $appId);
+            $pc         = new WXBizMsgCrypt(TOKEN, EncodingAESKey, AppID);
             $decryptMsg = "";  //解密后的明文
             $errCode    = $pc->decryptMsg($msg_signature, $timestamp, $nonce, $postArr, $decryptMsg);
             if ($errCode == 0) {
@@ -53,7 +61,7 @@ function responseMsg() {
             //加密
             if ($encrypt_type == 'aes') {
                 $encryptMsg = ''; //加密后的密文
-                $pc         = new WXBizMsgCrypt($token, $encodingAesKey, $appId);
+                $pc         = new WXBizMsgCrypt(TOKEN, EncodingAESKey, AppID);
                 $errCode    = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
                 if ($errCode == 0) {
                     echo $encryptMsg;
