@@ -44,7 +44,6 @@ if(strtolower($postObj->MsgType) == 'text'){
     if(!empty($keyword)) {
         if($keyword=='你好'){
             $content='老匹夫';
-            responseText($postObj, $content);
         }
     }
 }
