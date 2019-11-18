@@ -54,8 +54,12 @@ function responseMsg() {
         //加密
         if ($encrypt_type == 'aes') {
             $encryptMsg = ''; //加密后的密文
+            $pc         = new WXBizMsgCrypt($token, $encodingAesKey, $appId);
             $errCode    = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
-            $info       = $encryptMsg;
+            if ($errCode == 0) {
+                $info       = $encryptMsg;
+            }
+
         }
         echo $info;
     }
