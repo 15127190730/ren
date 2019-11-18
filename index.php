@@ -47,10 +47,9 @@ if(strtolower($postObj->MsgType) == 'text'){
         }
     }
 }
-file_put_contents('aaa.txt', $content, FILE_APPEND);
+
 if(isset($content) && $content) {
     $info = responseText($postObj, $content);
-
     //加密
     if ($encrypt_type == 'aes') {
         $encryptMsg = ''; //加密后的密文
@@ -59,6 +58,7 @@ if(isset($content) && $content) {
     }
     echo $info;
 }
+file_put_contents('aaa.txt', $info, FILE_APPEND);
 //回复文字消息
 function responseText($postObj, $content) {
     $toUser   = $postObj->FromUserName;
