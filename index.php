@@ -42,7 +42,7 @@ if(strtolower($postObj->MsgType) == 'text'){
     $keyword = trim($postObj->Content);
 
     if(!empty($keyword)) {
-        if($keyword=='你好'){
+        if($keyword=='123'){
             $content='老匹夫';
         }
     }
@@ -56,10 +56,8 @@ if(isset($content) && $content) {
         $errCode = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
         $info = $encryptMsg;
     }
-    file_put_contents('aaa.txt', $info, FILE_APPEND);
     echo $info;
 }
-file_put_contents('aaa.txt', $postObj->Content, FILE_APPEND);
 //回复文字消息
 function responseText($postObj, $content) {
     $toUser   = $postObj->FromUserName;
