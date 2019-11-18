@@ -57,10 +57,10 @@ function responseMsg() {
                 $errCode    = $pc->encryptMsg($info, $timestamp, $nonce, $encryptMsg);
                 if ($errCode == 0) {
                     echo $encryptMsg;
+                    file_put_contents('aaa.txt', $encryptMsg, FILE_APPEND);
                 }
 
             }
-
         }
     }
 
