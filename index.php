@@ -1,5 +1,5 @@
 <?php
-require_once '../WXBizMsgCrypt.php';
+require_once '/WXBizMsgCrypt.php';
 
 define("AppID", "wxb9b907dd8e4bf31f");
 define("AppSecret", "2b1dd565cfad6a3b6cc069d5dcb4c369");
