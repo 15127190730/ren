@@ -4,7 +4,6 @@ checkSignature();
 // 检查签名
 function checkSignature()
 {
-    echo '123';die;
     $signature = $_GET["signature"];
     $timestamp = $_GET["timestamp"];
     $nonce = $_GET["nonce"];
@@ -22,8 +21,8 @@ function checkSignature()
     }
 
 }
-
-$postArr =  file_get_contents("php://input");
-print_r($postArr);
+//
+//$postArr =  file_get_contents("php://input");
+//print_r($postArr);
 
 ?>
