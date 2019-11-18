@@ -64,6 +64,7 @@ function responseMsg() {
         if (isset($content) && $content) {
             $info = responseText($postObj, $content);
             echo $info;
+//            file_put_contents('aaa.txt', $encryptMsg, FILE_APPEND);
             //加密
             if ($encrypt_type == 'aes') {
                 $encryptMsg = ''; //加密后的密文
