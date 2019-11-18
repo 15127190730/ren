@@ -99,33 +99,32 @@ class Prpcrypt {
      * @return string 解密得到的明文
      */
     public function decrypt($encrypted, $appid) {
-        file_put_contents('aaa.txt', '111111', FILE_APPEND);
         try {
-            //使用BASE64对需要解密的字符串进行解码
-            $decrypted = openssl_decrypt($encrypted,'AES-128-CBC',$this->key,OPENSSL_ZERO_PADDING);
+            $iv = substr($this->key, 0, 16);
+            $decrypted = openssl_decrypt(base64_decode($encrypted),'AES-256-CBC',$this->key,OPENSSL_RAW_DATA,$iv);
 
         } catch (Exception $e) {
             return array(ErrorCode::$DecryptAESError, null);
         }
-
         try {
             //去除补位字符
             $pkc_encoder = new PKCS7Encoder;
-            $result      = $pkc_encoder->decode($decrypted);
+            $result = $pkc_encoder->decode($decrypted);
             //去除16位随机字符串,网络字节序和AppId
             if (strlen($result) < 16)
                 return "";
-            $content     = substr($result, 16, strlen($result));
-            $len_list    = unpack("N", substr($content, 0, 4));
-            $xml_len     = $len_list[1];
+            $content = substr($result, 16, strlen($result));
+            $len_list = unpack("N", substr($content, 0, 4));
+            $xml_len = $len_list[1];
             $xml_content = substr($content, 4, $xml_len);
-            $from_appid  = substr($content, $xml_len + 4);
+            $from_appid = substr($content, $xml_len + 4);
+
         } catch (Exception $e) {
+            //print $e;
             return array(ErrorCode::$IllegalBuffer, null);
         }
-        if ($from_appid != $appid){
+        if ($from_appid != $appid)
             return array(ErrorCode::$ValidateAppidError, null);
-        }
         return array(0, $xml_content);
 
     }
