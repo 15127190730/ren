@@ -1,14 +1,5 @@
 <?php
 
-$sign=checkSignature();
-if($sign){
-    $echostr = $_GET["echostr"];
-    echo $echostr;
-}
-
-// 检查签名
-function checkSignature()
-{
     $signature = $_GET["signature"];
     $timestamp = $_GET["timestamp"];
     $nonce = $_GET["nonce"];
@@ -20,12 +11,12 @@ function checkSignature()
     $tmpStr = sha1( $tmpStr );
 
     if( $tmpStr == $signature ){
-        return true;
+        $echostr = $_GET["echostr"];
+        echo $echostr;
     }else{
         return false;
     }
 
-}
 //
 //$postArr =  file_get_contents("php://input");
 //print_r($postArr);
