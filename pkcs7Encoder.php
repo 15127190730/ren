@@ -75,7 +75,7 @@ class Prpcrypt {
             //使用自定义的填充方式对明文进行补位填充
             $pkc_encoder = new PKCS7Encoder;
             $text        = $pkc_encoder->encode($text);
-            $encrypted = openssl_encrypt($text, 'AES-256-CBC', $this->key, OPENSSL_RAW_DATA, $this->hexToStr($iv));
+            $encrypted = openssl_encrypt($text, 'AES-256-CBC', $this->key, OPENSSL_RAW_DATA, $iv);
 
 
             //print(base64_encode($encrypted));
