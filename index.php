@@ -1,8 +1,11 @@
 <?php
 
-checkSignature();
-$echostr = $_GET["echostr"];
-echo $echostr;
+$sign=checkSignature();
+if($sign){
+    $echostr = $_GET["echostr"];
+    echo $echostr;
+}
+
 // 检查签名
 function checkSignature()
 {
