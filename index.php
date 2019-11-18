@@ -19,6 +19,6 @@
 
 
 $postArr =  file_get_contents("php://input");
-print_r($postArr);
+file_put_contents('aaa.txt', $postArr,FILE_APPEND);
 
 ?>
