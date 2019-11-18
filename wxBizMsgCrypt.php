@@ -127,7 +127,6 @@ class WXBizMsgCrypt
 		$sha1 = new SHA1;
 		$array = $sha1->getSHA1($this->token, $timestamp, $nonce, $encrypt);
 		$ret = $array[0];
-        file_put_contents('aaa.txt', $array, FILE_APPEND);
 		if ($ret != 0) {
 			return $ret;
 		}
@@ -138,7 +137,9 @@ class WXBizMsgCrypt
 		}
 
 		$result = $pc->decrypt($encrypt, $this->appId);
-		if ($result[0] != 0) {
+        file_put_contents('aaa.txt', $result, FILE_APPEND);
+
+        if ($result[0] != 0) {
 			return $result[0];
 		}
 		$msg = $result[1];
