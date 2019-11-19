@@ -4,7 +4,7 @@ define("AppSecret", "2b1dd565cfad6a3b6cc069d5dcb4c369");
 define("AppID", "wxb9b907dd8e4bf31f");
 define("TOKEN", "laopifu");
 define("EncodingAESKey", "39tWlDKmDQVxH8nPEd49TzGGAS1pKhmAj0sEbnIYWz0");
-checkSignature();
+//checkSignature();
 responseMsg();
 
 //$appId          = 'wxb9b907dd8e4bf31f';
